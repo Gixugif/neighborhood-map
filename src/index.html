@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel='stylesheet' href='./css/style.css'>
 
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -15,14 +15,13 @@
   </head>
 
   <body>
-    <div id="map" data-bind='map:myMap'></div>
+    <div id="map" data-bind='map'></div>
 
-    <script src='js/app.js'></script>
-    <script src='js/mapViewModel.js'></script>
+   <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCROMZmu0Hy1pV7f5buqCNABzgbk-B38DQ&callback=initMap">
+   </script>
 
-   <!--  <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCROMZmu0Hy1pV7f5buqCNABzgbk-B38DQ&callback=MapViewModel.initMap">
-    </script> -->
+   <script src='js/app.js'></script>
 
   </body>
 </html>
