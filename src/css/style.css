@@ -1,18 +1,18 @@
-html, body { 
-	height: 100%; 
-	margin: 0; 
-	padding: 0; 
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
-#map { 
-	height: 100%; 
+#map {
+	height: 100%;
 	position: relative;
 }
 
 #filter {
-	position: absolute; 
-	top: 10px; 
-	left: 90px; 
+	position: absolute;
+	top: 44px;
+	left: -5px;
 	z-index: 99;
 }
 
