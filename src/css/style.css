@@ -15,3 +15,8 @@ html, body {
 	left: 90px; 
 	z-index: 99;
 }
+
+.filter-box {
+	width: 250px;
+	height: 32px;
+}
