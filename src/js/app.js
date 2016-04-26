@@ -23,6 +23,12 @@ function addMarker(latLng,map,name) {
 	});
 }
 
+var filterBox = $('.filter-box');
+var menu = $('.filter-menu');
+
+filterBox.focus(function() {
+	menu.addClass('is-active');
+});
 
 
 
