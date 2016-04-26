@@ -7,15 +7,27 @@
 
     <link rel='stylesheet' href='./css/style.css'>
 
-    <link rel='stylesheet' href='http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-    <script src='http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
     <script type='text/javascript' src='scripts/bower_components/knockout/dist/knockout.js'></script>
   </head>
 
   <body>
     <div id='map'></div>
+
+    <div id='filter'>
+      <div class='container'>
+        <div class='row'>
+          <div class='col-xs-4'>
+            <form>
+              <input type='search' name='filter'>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
    <script async defer
       src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCROMZmu0Hy1pV7f5buqCNABzgbk-B38DQ&callback=initMap'>
