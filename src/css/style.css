@@ -1,8 +1,20 @@
+@import url(http://weloveiconfonts.com/api/?family=iconicfill);
+
+
 html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
 }
+
+
+/*fonts*/
+
+/* iconicfill */
+[class*="iconicfill-"]:before {
+  font-family: 'IconicFill', sans-serif;
+}
+
 
 #map {
 	height: 100%;
@@ -36,10 +48,18 @@ html, body {
     -webkit-transform: translate(-480px, 0);
     transform: translate(-480px, 0);
     /* Optionally, we animate the drawer. */
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 .filter-menu.is-active {
 	-webkit-transform: translate(0, 0);
     transform: translate(0, 0);
 }
+
+.close-button {
+	z-index: 100;
+    position: absolute;
+    padding: 1em;
+    color: black;
+    font-size: 2em;
+  }
