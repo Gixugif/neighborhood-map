@@ -41,7 +41,7 @@ html, body {
 	z-index: 98;
     background-color: orange;
     top: 0;
-    width: 100%;
+    width: 480px;
     height: 100%;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
@@ -64,3 +64,4 @@ html, body {
     color: black;
     font-size: 2em;
   }
+
