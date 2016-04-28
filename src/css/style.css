@@ -58,8 +58,9 @@ html, body {
 
 .close-button {
 	z-index: 100;
-    position: absolute;
-    padding: 1em;
+    position: relative;
+    float: right;
+    padding: 0.4em;
     color: black;
     font-size: 2em;
   }
