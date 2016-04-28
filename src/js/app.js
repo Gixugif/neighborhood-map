@@ -25,9 +25,14 @@ function addMarker(latLng,map,name) {
 
 var filterBox = $('.filter-box');
 var menu = $('.filter-menu');
+var close = $('.close-button');
 
 filterBox.focus(function() {
 	menu.addClass('is-active');
+});
+
+close.click(function() {
+	menu.removeClass('is-active');
 });
 
 
