@@ -15,8 +15,12 @@ var oauth_consumer_key = 'o7io1ZSwVn_Gcxj4MqsgkQ';
 var oauth_token = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM';
 var oauth_signature_method = 'hmac-sha1';
 var oauth_signature = 'oZstoMIkks8R3kXJGM5uFzDipas';
-var oauth_timestamp = (new Date).getTime() * 1000;
-var oauth_nonce = randomString(10);
+var oauth_timestamp;
+var oauth_nonce;
+
+
+/*Yelp API search values*/
+var baseURL = 'https://api.yelp.com/v2/search?'
 
 
 function initMap() {
@@ -40,6 +44,18 @@ function addMarker(latLng,map,name) {
 		animation: google.maps.Animation.DROP,
 		title: name
 	});
+}
+
+function yelpSearch(term,location,category_filter) {
+	var searchURL = baseURL + 'term=' + term + '&location=' + location + '&category_filter=' \
+	+ '&oauth_consumer_key=' + oauth_consumer_key + '&oauth_token=' + oauth_token + '&oauth_signature_method=' \
+	+ oauth_signature_method + '&oauth_timestamp=' + (new Date).getTime() * 1000 + '&oauth_nonce=' + randomString(10);
+
+	var oReq = new XMLHttpRequest();
+	oReq.open('get',searchURL,true);
+	oReq.send();
+
+	return oReq;
 }
 
 var filterBox = $('.filter-box');
