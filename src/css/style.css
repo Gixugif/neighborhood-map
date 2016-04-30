@@ -63,5 +63,16 @@ html, body {
     padding: 0.4em;
     color: black;
     font-size: 2em;
-  }
+}
 
+
+/*Info Windows*/
+
+#content {
+    font-size: 14px;
+}
+
+#placeImg {
+    float: left;
+    padding-right: 5px;
+}
