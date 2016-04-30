@@ -19,13 +19,6 @@ var oauth_signatureVal = 'oZstoMIkks8R3kXJGM5uFzDipas';
 var oauth_timestamp = '&oauth_timestamp=';
 var oauth_nonce = '&oauth_nonce=';
 
-/*Yelp search URL values*/
-var baseURL = 'https://api.yelp.com/v2/search?';
-var term = 'term=';
-var location = '\&location=';
-var category = '&category_filter=';
-
-
 function initMap() {
 	var latLng = {lat: 41.994654, lng: -73.875959};
 	var markerArray = [];
@@ -54,8 +47,6 @@ function nonce_generate() {
 }
 
 function searchYelp(termVal,locationVal,categoryVal) {
-	//var searchURL = baseURL + term + termVal + '\&' + 'location=' + locationVal + category + categoryVal
-	//console.log(searchURL);
 
 	var httpMethod = 'GET',
 		url = 'http://api.yelp.com/v2/search?',
@@ -91,7 +82,7 @@ function searchYelp(termVal,locationVal,categoryVal) {
 			}
 		};
 
-		$.ajax(settings);
+		return $.ajax(settings);
 }
 
 searchYelp('food','Red+Hook,NY+12571','diners');
