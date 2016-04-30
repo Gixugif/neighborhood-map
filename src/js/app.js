@@ -10,16 +10,6 @@ var randomString = function(length) {
     return text;
 }
 
-/*Yelp API oauth values*/
-
-var oauth_consumer_key = 'o7io1ZSwVn_Gcxj4MqsgkQ';
-var oauth_token = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM';
-var oauth_signature_method = 'hmac-sha1';
-var oauth_signature = 'oZstoMIkks8R3kXJGM5uFzDipas';
-var oauth_timestamp;
-var oauth_nonce;
-
-
 /*Yelp API search values*/
 var baseURL = 'https://api.yelp.com/v2/search?'
 
@@ -52,6 +42,24 @@ function addMarker(latLng,map,name) {
 		animation: google.maps.Animation.DROP,
 		title: name
 	});
+}
+
+function createMarkers(locationData,map) {
+	var markers = [];
+
+	locationData.forEach(function(business) {
+		var latLng = locationData['businesses'][business]['location']['coodrdinate'],
+			name = locationData['businesses'][business]['name'],
+
+			markers.append(new google.maps.Marker({
+				position: latLng,
+				map: map,
+				animation: google.maps.Animation.DROP,
+				title, name
+			}));
+	})
+
+	return markers;
 }
 
 function nonce_generate() {
@@ -97,7 +105,9 @@ function searchYelp(termVal,locationVal,categoryVal) {
 		return $.ajax(settings);
 }
 
-searchYelp('food','Red+Hook,NY+12571','diners');
+var searchResutls = searchYelp('food','Red+Hook,NY+12571','diners');
+
+
 
 var filterBox = $('.filter-box');
 var menu = $('.filter-menu');
