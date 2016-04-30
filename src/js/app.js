@@ -56,6 +56,17 @@ function searhYelp(termVal,locationVal,categoryVal) {
 	var searchURL = baseURL + term + termVal + location + locationVal + category + categoryVal + \
 	oauth_consumer_key + oauth_consumer_keyVal + oauth_token + oauth_tokenVal + oauth_signature_method + oauth_signature_methodVal + \
     oauth_signature + oauth_signatureVal + oauth_timestamp + (new Date).getTime() * 1000 + oauth_nonce + randomString(10);
+
+    var response = function reqListener () {
+         return this.responseText;
+        }
+
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener('load',reqListener);
+        oReq.open('GET',searchURL);
+        oReq.send();
+
+    return response;
 }
 
 var filterBox = $('.filter-box');
