@@ -1,5 +1,5 @@
 var map;
-
+var currentMarker = false;
 
 var randomString = function(length) {
     var text = "";
@@ -63,7 +63,13 @@ function createMarkers(locationData,map) {
 				animation: google.maps.Animation.DROP,
 				title: name
 			});
-		marker.addListener('click', function() {
+
+		 marker.addListener('click', function() {
+		 	if (currentMarker) {
+		 		currentMarker.close();
+		 	}
+
+		 	currentMarker = infowindow;
 			infowindow.open(map,marker);
 		});
 	})
