@@ -49,13 +49,13 @@ function createMarkers(locationData,map) {
 
 	locationData.forEach(function(business) {
 		var latLng = locationData['businesses'][business]['location']['coodrdinate'],
-			name = locationData['businesses'][business]['name'],
+			name = locationData['businesses'][business]['name'];
 
 			markers.append(new google.maps.Marker({
 				position: latLng,
 				map: map,
 				animation: google.maps.Animation.DROP,
-				title, name
+				title: name
 			}));
 	})
 
