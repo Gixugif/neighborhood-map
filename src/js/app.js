@@ -47,14 +47,25 @@ function createMarkers(locationData,map) {
 	locationData['businesses'].forEach(function(business) {
 
 		var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
-			name = business['name'];
+			name = business['name'],
+			phoneNum = business['display_phone'],
+			description = business['snippet_text'],
+			ratingImg = business['rating_img_url_small'],
+			img = business['image_url'];
 
 		var contentString = '<div id="content">' +
-		'<h1 id="placeName">' + name + '</h1>'
+		'<div id=placeImg><img src="' + img + '"></img></div>' +
+		'<h3 id="placeName">' + name + '</h3>' +
+		'<img src="' + ratingImg + '"></img>' +
+		'<p>' + phoneNum + '</p>' +
+		'<p>' + description + '</p>' +
+		'</div>';
+
 
 
 		var infowindow = new google.maps.InfoWindow({
-			content: contentString
+			content: contentString,
+			maxWidth: 350
 		});
 
 		var marker = new google.maps.Marker({
