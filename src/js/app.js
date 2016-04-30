@@ -29,9 +29,6 @@ function initMap() {
 		center: latLng,
 		zoom: 15
 	});
-
-	google.maps.event.addDomListener(window,'load',addMarker({lat: 41.994654, lng: -73.875959},map,'Red Hook, NY'));
-
 }
 
 function addMarker(latLng,map,name) {
@@ -45,21 +42,20 @@ function addMarker(latLng,map,name) {
 }
 
 function createMarkers(locationData,map) {
-	var markers = [];
+	console.log(locationData);
 
-	locationData.forEach(function(business) {
-		var latLng = locationData['businesses'][business]['location']['coodrdinate'],
-			name = locationData['businesses'][business]['name'];
+	locationData['businesses'].forEach(function(business) {
 
-			markers.append(new google.maps.Marker({
+		var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
+			name = business['name'];
+			console.log(latLng);
+			var marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
 				animation: google.maps.Animation.DROP,
 				title: name
-			}));
+			});
 	})
-
-	return markers;
 }
 
 function nonce_generate() {
@@ -95,19 +91,17 @@ function searchYelp(termVal,locationVal,categoryVal) {
 			dataType: 'jsonp',
 			jsonpCallback: 'cb',
 			success: function(results) {
-				console.log(results);
+				createMarkers(results,map);
 			},
 			error: function(error) {
 				console.log(error);
 			}
 		};
 
-		return $.ajax(settings);
+		$.ajax(settings);
 }
 
-var searchResutls = searchYelp('food','Red+Hook,NY+12571','diners');
-
-
+searchYelp('food','Red+Hook,NY+12571','diners');
 
 var filterBox = $('.filter-box');
 var menu = $('.filter-menu');
