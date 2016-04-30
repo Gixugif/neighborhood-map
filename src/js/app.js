@@ -12,6 +12,18 @@ var randomString = function(length) {
 
 /*Yelp API oauth values*/
 
+var oauth_consumer_key = 'o7io1ZSwVn_Gcxj4MqsgkQ';
+var oauth_token = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM';
+var oauth_signature_method = 'hmac-sha1';
+var oauth_signature = 'oZstoMIkks8R3kXJGM5uFzDipas';
+var oauth_timestamp;
+var oauth_nonce;
+
+
+/*Yelp API search values*/
+var baseURL = 'https://api.yelp.com/v2/search?'
+
+
 var oauth_consumer_keyVal = 'o7io1ZSwVn_Gcxj4MqsgkQ';
 var oauth_tokenVal = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM';
 var oauth_signature_methodVal = 'HMAC-SHA1';
