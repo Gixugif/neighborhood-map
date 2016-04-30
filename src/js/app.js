@@ -48,13 +48,24 @@ function createMarkers(locationData,map) {
 
 		var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
 			name = business['name'];
-			console.log(latLng);
-			var marker = new google.maps.Marker({
+
+		var contentString = '<div id="content">' +
+		'<h1 id="placeName">' + name + '</h1>'
+
+
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+
+		var marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
 				animation: google.maps.Animation.DROP,
 				title: name
 			});
+		marker.addListener('click', function() {
+			infowindow.open(map,marker);
+		});
 	})
 }
 
@@ -101,7 +112,7 @@ function searchYelp(termVal,locationVal,categoryVal) {
 		$.ajax(settings);
 }
 
-searchYelp('food','Red+Hook,NY+12571','diners');
+searchYelp('food','Red+Hook,NY+12571','restaurants');
 
 var filterBox = $('.filter-box');
 var menu = $('.filter-menu');
