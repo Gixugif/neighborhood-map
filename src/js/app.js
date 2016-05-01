@@ -177,7 +177,8 @@ function FilterViewModel() {
 
 			var name = business['name'],
 				categoryArray = business['categories'],
-				location = [business['location']['cross_streets'],business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
+				address = business['location']['display_address'],
+				location = [business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
 
 			var found = false;
 
@@ -194,6 +195,15 @@ function FilterViewModel() {
 			if (!found) {
 				location.forEach(function(locationPiece) {
 					if(!found && locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
+						self.filteredLocations.push({name: name});
+						found = true;
+					}
+				})
+			}
+
+			if (!found) {
+				address.forEach(function(addressPiece) {
+					if(!found && addressPiece.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name});
 						found = true;
 					}
