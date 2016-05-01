@@ -178,6 +178,7 @@ function FilterViewModel() {
 			var name = business['name'],
 				categoryArray = business['categories'],
 				address = business['location']['display_address'],
+				latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
 				location = [business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
 
 			var found = false;
@@ -188,7 +189,8 @@ function FilterViewModel() {
 					if(!found && category.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name,
 							address: address[0] + ' ' + address[1],
-							category: categoryArray[0][0]
+							category: categoryArray[0][0],
+							latLng: latLng
 						});
 						found = true;
 					}
@@ -200,7 +202,8 @@ function FilterViewModel() {
 					if(!found && locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name,
 							address: address[0] + ' ' + address[1],
-							category: categoryArray[0][0]
+							category: categoryArray[0][0],
+							latLng: latLng
 						});
 						found = true;
 					}
@@ -212,7 +215,8 @@ function FilterViewModel() {
 					if(!found && addressPiece.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name,
 							address: address[0] + ' ' + address[1],
-							category: categoryArray[0][0]
+							category: categoryArray[0][0],
+							latLng: latLng
 						});
 						found = true;
 					}
@@ -222,7 +226,8 @@ function FilterViewModel() {
 			if (name.toLowerCase().contains(input.toLowerCase()) && !found) {
 				self.filteredLocations.push({name: name,
 					address: address[0] + ' ' + address[1],
-					category: categoryArray[0][0]
+					category: categoryArray[0][0],
+					latLng: latLng
 				});
 				found = true;
 			}
@@ -248,6 +253,10 @@ function FilterViewModel() {
 		})
 
 		removeDuplicates();
+	}
+
+	self.centerMap = function(location) {
+		map.setCenter(location.latLng);
 	}
 }
 
