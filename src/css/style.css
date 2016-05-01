@@ -7,6 +7,9 @@ html, body {
 	padding: 0;
 }
 
+
+/*bootstrap*/
+
 .container {
     max-width: 480px !important;
 }
@@ -81,6 +84,12 @@ html, body {
 .searchResult {
     width: 480px;
 }
+
+.locationName {
+    font-size: 14px;
+    font-weight: bold;
+}
+
 
 /*Info Windows*/
 
