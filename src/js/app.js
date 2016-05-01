@@ -185,8 +185,18 @@ function FilterViewModel() {
 
 			if (~input.indexOf(name) && !found) {
 				self.filteredLocations.push({name: name});
+				found = true;
 			}
+
 			console.log(self.filteredLocations());
+
+			if (found===false) {
+				console.log(name);
+				self.filteredLocations.remove(function(location) {
+					return location.name == name;
+				});
+			}
+
 			found = false;
 		})
 	}
