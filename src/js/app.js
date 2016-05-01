@@ -186,7 +186,10 @@ function FilterViewModel() {
 				categories.forEach(function(category) {
 
 					if(!found && category.toLowerCase().contains(input.toLowerCase())) {
-						self.filteredLocations.push({name: name});
+						self.filteredLocations.push({name: name,
+							address: address[0] + ' ' + address[1],
+							category: categoryArray[0][0]
+						});
 						found = true;
 					}
 				})
@@ -195,7 +198,10 @@ function FilterViewModel() {
 			if (!found) {
 				location.forEach(function(locationPiece) {
 					if(!found && locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
-						self.filteredLocations.push({name: name});
+						self.filteredLocations.push({name: name,
+							address: address[0] + ' ' + address[1],
+							category: categoryArray[0][0]
+						});
 						found = true;
 					}
 				})
@@ -204,14 +210,20 @@ function FilterViewModel() {
 			if (!found) {
 				address.forEach(function(addressPiece) {
 					if(!found && addressPiece.toLowerCase().contains(input.toLowerCase())) {
-						self.filteredLocations.push({name: name});
+						self.filteredLocations.push({name: name,
+							address: address[0] + ' ' + address[1],
+							category: categoryArray[0][0]
+						});
 						found = true;
 					}
 				})
 			}
 
 			if (name.toLowerCase().contains(input.toLowerCase()) && !found) {
-				self.filteredLocations.push({name: name});
+				self.filteredLocations.push({name: name,
+					address: address[0] + ' ' + address[1],
+					category: categoryArray[0][0]
+				});
 				found = true;
 			}
 
