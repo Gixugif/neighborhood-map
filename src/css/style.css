@@ -94,6 +94,8 @@ html, body {
 .searchResult {
     width: 440px;
     margin: 10px;
+    cursor: hand;
+    cursor: pointer;
 }
 
 .locationName {
