@@ -262,6 +262,8 @@ function FilterViewModel() {
 	}
 
 	self.centerMap = function(location) {
+		menu.removeClass('is-active');
+		filterBox.blur();
 		map.setCenter(location.latLng);
 	}
 }
