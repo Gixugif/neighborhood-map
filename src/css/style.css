@@ -11,7 +11,7 @@ html, body {
 /*bootstrap*/
 
 .container {
-    max-width: 480px !important;
+    max-width: 320px !important;
     max-height: 93% !important;
     overflow: auto !important;
     overflow-x: hidden !important;
@@ -37,7 +37,7 @@ html, body {
 	top: 44px;
 	left: -5px;
 	z-index: 99;
-    width: 480;
+    width: 320;
 }
 
 .filter-box {
@@ -52,12 +52,12 @@ html, body {
 	z-index: 98;
     background-color: orange;
     top: 0;
-    width: 480px !important;
+    width: 320px !important;
     height: 100%;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
-    -webkit-transform: translate(-480px, 0);
-    transform: translate(-480px, 0);
+    -webkit-transform: translate(-320px, 0);
+    transform: translate(-320px, 0);
     /* Optionally, we animate the drawer. */
     transition: transform 0.4s ease;
 }
@@ -79,7 +79,7 @@ html, body {
 }
 
 .filler {
-    width: 480px;
+    width: 320px;
     height: 90px;
 }
 
@@ -88,7 +88,7 @@ html, body {
 
 .results {
     max-height: 100%;
-    max-width: 480px !important;
+    max-width: 320px !important;
     overflow: auto;
     overflow-x: hidden !important;
 }
