@@ -193,13 +193,17 @@ function FilterViewModel() {
 				self.filteredLocations.removeAll();
 			}
 
-			if (found===false) {
+			if (!found) {
 				self.filteredLocations.remove(function(locationPiece) {
-					return locationPiece.name == name;
+					return locationPiece.name === name;
 				});
 			}
 
 			found = false;
+		})
+
+		self.filteredLocations.sort(function(left,right) { // sort results alphabetically
+			return left.name == right.name ? 0 : (left.name < right.name ? -1: 1)
 		})
 	}
 }
