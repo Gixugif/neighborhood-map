@@ -1,6 +1,8 @@
 var map;
 var currentMarker = false;
 
+var filteredLocations = ko.observableArray();
+
 var randomString = function(length) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -56,7 +58,7 @@ function createMarkers(locationData,map) {
 			ratingImg = business['rating_img_url_small'],
 			reviewCount = business['review_count'],
 			img = business['image_url'];
-		console.log(img);
+
 		var contentString = '<div id="content">' +
 		'<div id="placeImg>"<img src="' + img + '"></img></div>' +
 		'<div id="yelpLogo"><a href="http://www.yelp.com" target="_blank"><img src="' + yelpLogo + '"></img></a></div>' +
@@ -95,6 +97,40 @@ function nonce_generate() {
   return (Math.floor(Math.random() * 1e12).toString());
 }
 
+function filterLocations(input,locationData) {
+
+	locationData['businesses'].forEach(function(business) {
+
+		var name = business['name'],
+			categories = business['categories'],
+			location = [business['location']['cross_streets'],business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
+
+		var found = false;
+
+		categories.forEach(function(category) {
+			if(~input.indexOf(category)) {
+				filteredLocations.push(name);
+				found = true;
+			}
+		})
+
+		if (!found) {
+			location.forEach(function(locationPiece) {
+				if(~input.indexOf(locationPiece)) {
+					filteredLocations.push(name);
+					found = true;
+				}
+			})
+		}
+
+		if (~input.indexOf(name) && !found) {
+			filteredLocations.push(name);
+		}
+
+		found = false;
+	})
+}
+
 function searchYelp(termVal,locationVal,categoryVal) {
 
 	var httpMethod = 'GET',
@@ -115,8 +151,6 @@ function searchYelp(termVal,locationVal,categoryVal) {
 		encodedSignature = oauthSignature.generate(httpMethod,url,parameters,consumerSecret,tokenSecret);
 		parameters.oauth_signature = encodedSignature;
 
-		console.log(encodedSignature);
-
 		var settings = {
 			url: url,
 			data: parameters,
@@ -125,6 +159,11 @@ function searchYelp(termVal,locationVal,categoryVal) {
 			jsonpCallback: 'cb',
 			success: function(results) {
 				createMarkers(results,map);
+
+				filterBox.on('input', 'input:text', function(results) {
+					console.log('trigger');
+					filterLocations(this,results);
+				}).trigger('input');
 			},
 			error: function(error) {
 				console.log(error);
