@@ -62,7 +62,7 @@ function createMarkers(locationData,map) {
 		'<div id="yelpLogo"><a href="http://www.yelp.com" target="_blank"><img src="' + yelpLogo + '"></img></a></div>' +
 		'<h3 id="placeName">' + name + '</h3>' +
 		'<img src="' + ratingImg + '"></img>' + '(' + reviewCount + ')' +
-		'<p>' + phoneNum + '</p>' +
+		'<p><a href="tel: +' + phoneNum + '">' + phoneNum + '</a></p>' +
 		'<p>' + description + '<a href="' + businessURL + '" target="_blank">(read more...)</a></p>' +
 		'</div>';
 
