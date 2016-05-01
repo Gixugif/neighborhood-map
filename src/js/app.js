@@ -44,21 +44,26 @@ function addMarker(latLng,map,name) {
 function createMarkers(locationData,map) {
 	console.log(locationData);
 
+	var yelpLogo = './images/yelp-logo-xsmall.png';
+
 	locationData['businesses'].forEach(function(business) {
 
 		var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
 			name = business['name'],
 			phoneNum = business['display_phone'],
 			description = business['snippet_text'],
+			businessURL = business['url'],
 			ratingImg = business['rating_img_url_small'],
+			reviewCount = business['review_count'],
 			img = business['image_url'];
-
+		console.log(img);
 		var contentString = '<div id="content">' +
-		'<div id=placeImg><img src="' + img + '"></img></div>' +
+		'<div id="placeImg>"<img src="' + img + '"></img></div>' +
+		'<div id="yelpLogo"><a href="http://www.yelp.com" target="_blank"><img src="' + yelpLogo + '"></img></a></div>' +
 		'<h3 id="placeName">' + name + '</h3>' +
-		'<img src="' + ratingImg + '"></img>' +
+		'<img src="' + ratingImg + '"></img>' + '(' + reviewCount + ')' +
 		'<p>' + phoneNum + '</p>' +
-		'<p>' + description + '</p>' +
+		'<p>' + description + '<a href="' + businessURL + '" target="_blank">(read more...)</a></p>' +
 		'</div>';
 
 
