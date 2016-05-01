@@ -137,9 +137,15 @@ function searchYelp(termVal,locationVal,categoryVal) {
 
 searchYelp('food','Red+Hook,NY+12571','restaurants');
 
-var filterBox = $('.filter-box');
-var menu = $('.filter-menu');
-var close = $('.close-button');
+var filterBox = $('.filter-box'),
+	menu = $('.filter-menu'),
+ 	close = $('.close-button'),
+	map = $('#map');
+
+map.click(function() {
+	menu.removeClass('is-active');
+	filterBox.blur(); // we have to remove focus or else it can't gain focus and reopen the menu!
+});
 
 filterBox.focus(function() {
 	menu.addClass('is-active');
