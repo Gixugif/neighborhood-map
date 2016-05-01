@@ -23,6 +23,13 @@
 
     <nav class='filter-menu' >
       <span class='close-button iconicfill-x-alt'></span>
+      <div class='container'>
+        <div class='row' data-bind='foreach: filteredLocations'>
+          <div class='col-xs-10'>
+            <span class='locationName' data-bind='text: $index'></span>
+          </div>
+        </div>
+      </div>
     </nav>
 
 
