@@ -74,6 +74,8 @@ html, body {
     padding: 0.4em;
     color: black;
     font-size: 2em;
+    cursor: hand;
+    cursor: pointer; /*same as hand in FireFox*/
 }
 
 .filler {
@@ -95,7 +97,7 @@ html, body {
     width: 440px;
     margin: 10px;
     cursor: hand;
-    cursor: pointer;
+    cursor: pointer; /*same as hand in FireFox*/
 }
 
 .locationName {
