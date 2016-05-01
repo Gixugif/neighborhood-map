@@ -15,6 +15,7 @@
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
     <script type='text/javascript' src='scripts/bower_components/knockout/dist/knockout.js'></script>
     <script src="bower_components/oauth-signature/dist/oauth-signature.min.js"></script>
+    <script src="https://cdn.rawgit.com/jprichardson/string.js/master/lib/string.min.js"></script>
   </head>
 
   <body>
@@ -26,9 +27,14 @@
       <div class='container'>
         <div class='row filler'></div>
         <div data-bind='foreach: filteredLocations'>
-          <div class='row'>
+          <div class='row searchResult'>
             <div class='col-xs-10'>
               <span class='locationName' data-bind='text: name'></span>
+            </div>
+            <div class='row'>
+              <div class='col-xs-10 address'>
+                <span data-bind='text: address'></span>
+              </div>
             </div>
           </div>
         </div>
