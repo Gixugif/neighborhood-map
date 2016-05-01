@@ -12,6 +12,9 @@ html, body {
 
 .container {
     max-width: 480px !important;
+    max-height: 90% !important;
+    overflow: auto !important;
+    overflow-x: hidden !important;
 }
 
 
@@ -81,13 +84,27 @@ html, body {
 
 /*Search Results*/
 
+.results {
+    max-height: 90% !important;
+    max-width: 480px !important;
+    overflow: auto;
+    overflow-x: hidden !important;
+}
+
 .searchResult {
-    width: 480px;
+    width: 440px;
+    margin: 10px;
 }
 
 .locationName {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+}
+
+.address {
+    font-size: 12px;
+    font-style: italic;
+    padding-left: 50px !important;
 }
 
 
