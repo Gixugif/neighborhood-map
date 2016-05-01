@@ -1,7 +1,6 @@
 var map;
 var currentMarker = false;
-
-var filteredLocations = ko.observableArray();
+var yelpResults;
 
 var randomString = function(length) {
     var text = "";
@@ -97,39 +96,6 @@ function nonce_generate() {
   return (Math.floor(Math.random() * 1e12).toString());
 }
 
-function filterLocations(input,locationData) {
-
-	locationData['businesses'].forEach(function(business) {
-
-		var name = business['name'],
-			categories = business['categories'],
-			location = [business['location']['cross_streets'],business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
-
-		var found = false;
-
-		categories.forEach(function(category) {
-			if(~input.indexOf(category)) {
-				filteredLocations.push(name);
-				found = true;
-			}
-		})
-
-		if (!found) {
-			location.forEach(function(locationPiece) {
-				if(~input.indexOf(locationPiece)) {
-					filteredLocations.push(name);
-					found = true;
-				}
-			})
-		}
-
-		if (~input.indexOf(name) && !found) {
-			filteredLocations.push(name);
-		}
-
-		found = false;
-	})
-}
 
 function searchYelp(termVal,locationVal,categoryVal) {
 
@@ -159,11 +125,7 @@ function searchYelp(termVal,locationVal,categoryVal) {
 			jsonpCallback: 'cb',
 			success: function(results) {
 				createMarkers(results,map);
-
-				filterBox.on('input', 'input:text', function(results) {
-					console.log('trigger');
-					filterLocations(this,results);
-				}).trigger('input');
+				yelpResults = results;
 			},
 			error: function(error) {
 				console.log(error);
@@ -186,3 +148,52 @@ filterBox.focus(function() {
 close.click(function() {
 	menu.removeClass('is-active');
 });
+
+function FilterViewModel() {
+	var self = this;
+
+	self.filteredLocations = ko.observableArray();
+
+	self.filterLocations = function(input,locationData) {
+
+		locationData['businesses'].forEach(function(business) {
+
+			var name = business['name'],
+				categoryArray = business['categories'],
+				location = [business['location']['cross_streets'],business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
+
+			var found = false;
+
+			categoryArray.forEach(function(categories) {
+				categories.forEach(function(category) {
+
+					if(~input.indexOf(category)) {
+						self.filteredLocations.push(name);
+						found = true;
+					}
+				})
+			})
+
+			if (!found) {
+				location.forEach(function(locationPiece) {
+					if(~input.indexOf(locationPiece)) {
+						self.filteredLocations.push(name);
+						found = true;
+					}
+				})
+			}
+
+			if (~input.indexOf(name) && !found) {
+				self.filteredLocations.push(name);
+			}
+			console.log(self.filteredLocations());
+			found = false;
+		})
+	}
+}
+
+ko.applyBindings(FilterViewModel);
+
+filterBox.on('input', function() {
+	filterLocations($(this).val(),yelpResults);
+}).trigger('input');
