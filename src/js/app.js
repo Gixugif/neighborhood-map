@@ -167,7 +167,7 @@ function FilterViewModel() {
 			categoryArray.forEach(function(categories) {
 				categories.forEach(function(category) {
 
-					if(~input.indexOf(category)) {
+					if(category.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name});
 						found = true;
 					}
@@ -176,24 +176,22 @@ function FilterViewModel() {
 
 			if (!found) {
 				location.forEach(function(locationPiece) {
-					if(~input.indexOf(locationPiece)) {
+					if(locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name});
 						found = true;
 					}
 				})
 			}
 
-			if (~input.indexOf(name) && !found) {
+			if (name.toLowerCase().contains(input.toLowerCase()) && !found) {
 				self.filteredLocations.push({name: name});
 				found = true;
 			}
 
-			console.log(self.filteredLocations());
 
 			if (found===false) {
-				console.log(name);
-				self.filteredLocations.remove(function(location) {
-					return location.name == name;
+				self.filteredLocations.remove(function(locationPiece) {
+					return locationPiece.name == name;
 				});
 			}
 
