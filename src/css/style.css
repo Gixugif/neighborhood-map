@@ -7,6 +7,10 @@ html, body {
 	padding: 0;
 }
 
+.container {
+    max-width: 480px !important;
+}
+
 
 /*fonts*/
 
@@ -27,6 +31,7 @@ html, body {
 	top: 44px;
 	left: -5px;
 	z-index: 99;
+    width: 480;
 }
 
 .filter-box {
@@ -41,7 +46,7 @@ html, body {
 	z-index: 98;
     background-color: orange;
     top: 0;
-    width: 480px;
+    width: 480px !important;
     height: 100%;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
@@ -65,6 +70,17 @@ html, body {
     font-size: 2em;
 }
 
+.filler {
+    width: 480px;
+    height: 120px;
+}
+
+
+/*Search Results*/
+
+.searchResult {
+    width: 480px;
+}
 
 /*Info Windows*/
 
@@ -75,4 +91,8 @@ html, body {
 #placeImg {
     float: left;
     padding-right: 5px;
+}
+
+#yelpLogo {
+    float: right;
 }
