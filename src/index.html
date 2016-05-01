@@ -24,9 +24,12 @@
     <nav class='filter-menu' >
       <span class='close-button iconicfill-x-alt'></span>
       <div class='container'>
-        <div class='row' data-bind='foreach: filteredLocations'>
-          <div class='col-xs-10'>
-            <span class='locationName' data-bind='text: $index'></span>
+        <div class='row filler'></div>
+        <div data-bind='foreach: filteredLocations'>
+          <div class='row'>
+            <div class='col-xs-10'>
+              <span class='locationName' data-bind='text: name'></span>
+            </div>
           </div>
         </div>
       </div>
@@ -38,7 +41,7 @@
         <div class='row'>
           <div class='col-xs-4'>
             <form>
-              <input class='filter-box jq_watermark' type='search' name='filter' title='filter'>
+              <input class='filter-box jq_watermark' type='text' name='filter' title='filter'>
             </form>
           </div>
         </div>

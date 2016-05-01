@@ -168,7 +168,7 @@ function FilterViewModel() {
 				categories.forEach(function(category) {
 
 					if(~input.indexOf(category)) {
-						self.filteredLocations.push(name);
+						self.filteredLocations.push({name: name});
 						found = true;
 					}
 				})
@@ -177,14 +177,14 @@ function FilterViewModel() {
 			if (!found) {
 				location.forEach(function(locationPiece) {
 					if(~input.indexOf(locationPiece)) {
-						self.filteredLocations.push(name);
+						self.filteredLocations.push({name: name});
 						found = true;
 					}
 				})
 			}
 
 			if (~input.indexOf(name) && !found) {
-				self.filteredLocations.push(name);
+				self.filteredLocations.push({name: name});
 			}
 			console.log(self.filteredLocations());
 			found = false;
