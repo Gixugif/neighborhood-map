@@ -154,6 +154,23 @@ function FilterViewModel() {
 
 	self.filteredLocations = ko.observableArray();
 
+	self.removeDuplicates = function() {
+		current = self.filteredLocations()[0];
+
+		for (var i=0; i < self.filteredLocations().length; i++){
+			console.log(self.filteredLocations());
+			if (current.name === self.filteredLocations()[i].name) {
+				self.filteredLocations()[i].name = 'erase';
+			} else {
+				current = self.filteredLocations()[i];
+			}
+		}
+
+		self.filteredLocations.remove(function(locationPiece) {
+			return locationPiece.name === 'erase';
+		});
+	}
+
 	self.filterLocations = function(input,locationData) {
 
 		locationData['businesses'].forEach(function(business) {
@@ -202,9 +219,13 @@ function FilterViewModel() {
 			found = false;
 		})
 
-		self.filteredLocations.sort(function(left,right) { // sort results alphabetically
+		self.filteredLocations.sort(function(left,right) {
+		// sort results alphabetically
+
 			return left.name == right.name ? 0 : (left.name < right.name ? -1: 1)
 		})
+
+		removeDuplicates();
 	}
 }
 
