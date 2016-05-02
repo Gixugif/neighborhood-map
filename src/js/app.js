@@ -32,6 +32,13 @@ function initMap() {
 	});
 }
 
+// For IE and Chrome compatability
+if(!('contains' in String.prototype)) {
+    String.prototype.contains = function(str, startIndex) {
+        return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+    };
+}
+
 function addMarker(latLng,map,name) {
 
 	var marker = new google.maps.Marker({
