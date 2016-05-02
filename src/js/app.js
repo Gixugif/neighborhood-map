@@ -66,7 +66,7 @@ function createMarkers(locationData,map) {
 			img = business['image_url'];
 
 		var contentString = '<div id="content">' +
-		'<div id="placeImg>"<img src="' + img + '"></img></div>' +
+		'<div id="placeImg"><img src="' + img + '"></img></div>' +
 		'<div id="yelpLogo"><a href="http://www.yelp.com" target="_blank"><img src="' + yelpLogo + '"></img></a></div>' +
 		'<h3 id="placeName">' + name + '</h3>' +
 		'<img src="' + ratingImg + '"></img>' + '(' + reviewCount + ')' +
