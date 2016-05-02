@@ -1,6 +1,7 @@
 var map;
 var currentMarker = false;
 var yelpResults;
+var marker = [];
 
 var randomString = function(length) {
     var text = "";
@@ -81,20 +82,20 @@ function createMarkers(locationData,map) {
 			maxWidth: 350
 		});
 
-		var marker = new google.maps.Marker({
+		marker.push(new google.maps.Marker({
 				position: latLng,
 				map: map,
 				animation: google.maps.Animation.DROP,
 				title: name
-			});
+			});)
 
-		 marker.addListener('click', function() {
+		 marker.slice(-1)[0].addListener('click', function() {
 		 	if (currentMarker) {
 		 		currentMarker.close();
 		 	}
 
 		 	currentMarker = infowindow;
-			infowindow.open(map,marker);
+			infowindow.open(map,marker.slice(-1)[0]);
 		});
 	})
 }
@@ -184,6 +185,19 @@ function FilterViewModel() {
 		});
 	}
 
+	self.setMarkers = function() {
+		markers.forEach(function(marker) {
+			filteredLocations().forEach(function(location) {
+				if (location.name === marker.title) {
+					marker.setMarker(map);
+					break;
+				} else {
+					marker.setMarker(null);
+				}
+			});
+		});
+	}
+
 	self.filterLocations = function(input,locationData) {
 
 		locationData['businesses'].forEach(function(business) {
@@ -261,11 +275,11 @@ function FilterViewModel() {
 
 		self.filteredLocations.sort(function(left,right) {
 		// sort results alphabetically
-
 			return left.name == right.name ? 0 : (left.name < right.name ? -1: 1)
 		})
 
 		removeDuplicates();
+		setMarkers();
 	}
 
 	self.centerMap = function(location) {
