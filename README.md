@@ -15,3 +15,14 @@ dist folder.
 To build the project yourself run the `grunt` command in the src
 folder.
 
+Features
+---------------
+- Map markers of restaurants/ bars in the area appear on the map
+- Clicking on the markers opens up an Info Window with some brief
+information from Yelp
+- You can search through locations using the filter box.
+- Searching locations causes only matched map pins to appear on
+the map
+- Clickin on locations in the search menu centers the map on the
+location, causes the map pin to bounce, and opens up its Info
+Window
