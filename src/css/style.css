@@ -1,10 +1,9 @@
 @import url(http://weloveiconfonts.com/api/?family=iconicfill);
-
-
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -19,63 +18,71 @@ html, body {
 
 
 /*fonts*/
-
 /* iconicfill */
+
 [class*="iconicfill-"]:before {
-  font-family: 'IconicFill', sans-serif;
+    font-family: 'IconicFill', sans-serif;
 }
 
+
+/*google map*/
 
 #map {
-	height: 100%;
-	position: relative;
-	z-index: 1;
+    height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
+
+/*filter box*/
+
 #filter {
-	position: absolute;
-	top: 44px;
-	left: -5px;
-	z-index: 99;
+    position: absolute;
+    top: 44px;
+    left: -5px;
+    z-index: 99;
     width: 320;
 }
 
 .filter-box {
-	width: 250px;
-	height: 32px;
+    width: 250px;
+    height: 32px;
 }
 
 
 /*Slide in Menu*/
 
 .filter-menu {
-	z-index: 98;
+    z-index: 98;
     background-color: orange;
     top: 0;
     width: 320px !important;
     height: 100%;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
+
     -webkit-transform: translate(-320px, 0);
     transform: translate(-320px, 0);
     /* Optionally, we animate the drawer. */
+
     transition: transform 0.4s ease;
 }
 
 .filter-menu.is-active {
-	-webkit-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
 }
 
 .close-button {
-	z-index: 100;
+    z-index: 100;
     position: relative;
     float: right;
     padding: 0.4em;
     color: black;
     font-size: 2em;
     cursor: hand;
-    cursor: pointer; /*same as hand in FireFox*/
+    cursor: pointer;
+    /*same as hand in FireFox*/
 }
 
 .filler {
@@ -97,7 +104,8 @@ html, body {
     width: 440px;
     margin: 10px;
     cursor: hand;
-    cursor: pointer; /*same as hand in FireFox*/
+    cursor: pointer;
+    /*same as hand in FireFox*/
 }
 
 .locationName {
@@ -105,7 +113,8 @@ html, body {
     font-weight: bold;
 }
 
-.address, .category {
+.address,
+.category {
     font-size: 12px;
     font-style: italic;
     padding-left: 50px !important;
