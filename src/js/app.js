@@ -104,7 +104,7 @@ function createMarkers(locationData, map) {
                 currentMarker.setAnimation(null);
             }
 
-            currentInfoWindow = infowindow;
+            currentInfoWindow = infowindow; // noting current opened infowindow so we know which to close if another opens
             currentMarker = markers[name];
 
             infowindow.open(map, markers[name]);
@@ -212,6 +212,7 @@ function FilterViewModel() {
         var findAll = false;
 
         if (input === '') {
+            // Display all locations if no filter is in place
             findAll = true;
         }
 
@@ -228,6 +229,7 @@ function FilterViewModel() {
                 location = [business.location.city, business.location.neighborhoods, business.location.state_code];
 
             var found = false;
+            // We'll keep track of if we matched this location already to avoid duplicate entries
 
             categoryArray.forEach(function(categories) {
                 categories.forEach(function(category) {
@@ -326,6 +328,8 @@ map.click(function() {
 filterBox.focus(function() {
     menu.addClass('is-active');
     filterLocations(filterInput, yelpResults);
+    // If the fitler box is given focus while there is a query in the box, we want to make sure
+    // the existing query is used!
 });
 
 closeButton.click(function() {
