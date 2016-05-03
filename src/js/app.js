@@ -2,6 +2,8 @@ var map;
 var currentMarker = false;
 var yelpResults;
 var markers = [];
+var filterInput = ko.observable('');
+
 
 var randomString = function(length) {
     var text = "";
@@ -157,7 +159,7 @@ map.click(function() {
 
 filterBox.focus(function() {
 	menu.addClass('is-active');
-	filterLocations('',yelpResults);
+	filterLocations(filterInput,yelpResults);
 });
 
 close.click(function() {
@@ -298,5 +300,6 @@ function FilterViewModel() {
 ko.applyBindings(FilterViewModel);
 
 filterBox.on('input', function() {
-	filterLocations($(this).val(),yelpResults);
+	filterInput = $(this).val()
+	filterLocations(filterInput,yelpResults);
 }).trigger('input');
