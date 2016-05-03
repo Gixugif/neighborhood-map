@@ -16,273 +16,271 @@ function nonce_generate() {
 }
 
 /*Yelp API search values*/
-var baseURL = 'https://api.yelp.com/v2/search?'
-
-
-var oauth_consumer_keyVal = 'o7io1ZSwVn_Gcxj4MqsgkQ';
-var oauth_tokenVal = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM';
-var oauth_signature_methodVal = 'HMAC-SHA1';
-var oauth_signatureVal = 'oZstoMIkks8R3kXJGM5uFzDipas';
-var oauth_timestamp = '&oauth_timestamp=';
-var oauth_nonce = '&oauth_nonce=';
+var baseURL = 'https://api.yelp.com/v2/search?';
+    oauth_consumer_keyVal = 'o7io1ZSwVn_Gcxj4MqsgkQ',
+    oauth_tokenVal = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM',
+    oauth_signature_methodVal = 'HMAC-SHA1',
+    oauth_signatureVal = 'oZstoMIkks8R3kXJGM5uFzDipas',
+    oauth_timestamp = '&oauth_timestamp=',
+    oauth_nonce = '&oauth_nonce=';
 
 
 /*Google Maps*/
 
 function initMap() {
-	var latLng = {lat: 41.994654, lng: -73.875959};
-	var markerArray = [];
+    var latLng = {lat: 41.994654, lng: -73.875959};
+    var markerArray = [];
 
-	map = new google.maps.Map(document.getElementById('map'), {
-		center: latLng,
-		zoom: 16
-	});
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: latLng,
+        zoom: 16
+    });
 }
 
 function addMarker(latLng,map,name) {
 
-	var marker = new google.maps.Marker({
-		position: latLng,
-		map: map,
-		animation: google.maps.Animation.DROP,
-		title: name
-	});
+    var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: name
+    });
 }
 
 function createMarkers(locationData,map) {
-	console.log(locationData);
+    console.log(locationData);
 
-	var yelpLogo = './images/yelp-logo-xsmall.png';
+    var yelpLogo = './images/yelp-logo-xsmall.png';
 
-	locationData['businesses'].forEach(function(business) {
+    locationData['businesses'].forEach(function(business) {
 
-		var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
-			name = business['name'],
-			phoneNum = business['display_phone'],
-			description = business['snippet_text'],
-			businessURL = business['url'],
-			ratingImg = business['rating_img_url_small'],
-			reviewCount = business['review_count'],
-			img = business['image_url'];
+        var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
+            name = business['name'],
+            phoneNum = business['display_phone'],
+            description = business['snippet_text'],
+            businessURL = business['url'],
+            ratingImg = business['rating_img_url_small'],
+            reviewCount = business['review_count'],
+            img = business['image_url'];
 
-		var contentString = '<div id="content">' +
-		'<div id="placeImg"><img src="' + img + '"></img></div>' +
-		'<div id="yelpLogo"><a href="http://www.yelp.com" target="_blank"><img src="' + yelpLogo + '"></img></a></div>' +
-		'<h3 id="placeName">' + name + '</h3>' +
-		'<img src="' + ratingImg + '"></img>' + '(' + reviewCount + ')' +
-		'<p><a href="tel: +' + phoneNum + '">' + phoneNum + '</a></p>' +
-		'<p>' + description + '<a href="' + businessURL + '" target="_blank">(read more...)</a></p>' +
-		'</div>';
+        var contentString = '<div id="content">' +
+        '<div id="placeImg"><img src="' + img + '"></img></div>' +
+        '<div id="yelpLogo"><a href="http://www.yelp.com" target="_blank"><img src="' + yelpLogo + '"></img></a></div>' +
+        '<h3 id="placeName">' + name + '</h3>' +
+        '<img src="' + ratingImg + '"></img>' + '(' + reviewCount + ')' +
+        '<p><a href="tel: +' + phoneNum + '">' + phoneNum + '</a></p>' +
+        '<p>' + description + '<a href="' + businessURL + '" target="_blank">(read more...)</a></p>' +
+        '</div>';
 
 
 
-		var infowindow = new google.maps.InfoWindow({
-			content: contentString,
-			maxWidth: 350
-		});
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 350
+        });
 
-		markers[name] = new google.maps.Marker({
-				position: latLng,
-				map: map,
-				animation: google.maps.Animation.DROP,
-				title: name
-			});
+        markers[name] = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: name
+            });
 
-		 markers[name].addListener('click', function() {
-		 	if (currentInfoWindow) {
-		 		currentInfoWindow.close();
-		 		currentMarker.setAnimation(null);
-		 	}
+         markers[name].addListener('click', function() {
+            if (currentInfoWindow) {
+                currentInfoWindow.close();
+                currentMarker.setAnimation(null);
+            }
 
-		 	currentInfoWindow = infowindow;
-		 	currentMarker = markers[name];
+            currentInfoWindow = infowindow;
+            currentMarker = markers[name];
 
-			infowindow.open(map,markers[name]);
-			markers[name].setAnimation(google.maps.Animation.BOUNCE);
+            infowindow.open(map,markers[name]);
+            markers[name].setAnimation(google.maps.Animation.BOUNCE);
 
-			google.maps.event.addListener(infowindow,'closeclick',function(){
-   				currentMarker.setAnimation(null);
-   			});
-		});
-	})
+            google.maps.event.addListener(infowindow,'closeclick',function(){
+                currentMarker.setAnimation(null);
+            });
+        });
+    })
 }
 
 /*Yelp*/
 
 function searchYelp(termVal,locationVal,categoryVal) {
 
-	var httpMethod = 'GET',
-		url = 'http://api.yelp.com/v2/search?',
-		parameters = {
-			location: locationVal,
-			term: termVal,
-			category_filter: categoryVal,
-			oauth_consumer_key: oauth_consumer_keyVal,
-			oauth_token: oauth_tokenVal,
-			oauth_nonce: nonce_generate(),
-			oauth_timestamp: Math.floor(Date.now()/1000),
-			oauth_signature_method: oauth_signature_methodVal,
-			callback: 'cb'
-		},
-		consumerSecret = 'Xzz7g7qJMMY6-rs8zX8KTtxtBZY',
-		tokenSecret = 'oZstoMIkks8R3kXJGM5uFzDipas',
-		encodedSignature = oauthSignature.generate(httpMethod,url,parameters,consumerSecret,tokenSecret);
-		parameters.oauth_signature = encodedSignature;
+    var httpMethod = 'GET',
+        url = 'http://api.yelp.com/v2/search?',
+        parameters = {
+            location: locationVal,
+            term: termVal,
+            category_filter: categoryVal,
+            oauth_consumer_key: oauth_consumer_keyVal,
+            oauth_token: oauth_tokenVal,
+            oauth_nonce: nonce_generate(),
+            oauth_timestamp: Math.floor(Date.now()/1000),
+            oauth_signature_method: oauth_signature_methodVal,
+            callback: 'cb'
+        },
+        consumerSecret = 'Xzz7g7qJMMY6-rs8zX8KTtxtBZY',
+        tokenSecret = 'oZstoMIkks8R3kXJGM5uFzDipas',
+        encodedSignature = oauthSignature.generate(httpMethod,url,parameters,consumerSecret,tokenSecret);
+        parameters.oauth_signature = encodedSignature;
 
-		var settings = {
-			url: url,
-			data: parameters,
-			cache: true,
-			dataType: 'jsonp',
-			jsonpCallback: 'cb',
-			success: function(results) {
-				createMarkers(results,map);
-				yelpResults = results;
-			},
-			error: function(error) {
-				alert('Warning: Cannot load location data!');
-			}
-		};
+        var settings = {
+            url: url,
+            data: parameters,
+            cache: true,
+            dataType: 'jsonp',
+            jsonpCallback: 'cb',
+            success: function(results) {
+                createMarkers(results,map);
+                yelpResults = results;
+            },
+            error: function(error) {
+                alert('Warning: Cannot load location data!');
+            }
+        };
 
-		$.ajax(settings);
+        $.ajax(settings);
 }
 
 function FilterViewModel() {
-	var self = this;
+    var self = this;
 
-	self.filteredLocations = ko.observableArray();
+    self.filteredLocations = ko.observableArray();
 
-	self.removeDuplicates = function() {
-		current = self.filteredLocations()[0];
+    self.removeDuplicates = function() {
+        current = self.filteredLocations()[0];
 
-		for (var i=0; i < self.filteredLocations().length; i++){
-			console.log(self.filteredLocations());
-			if (current.name === self.filteredLocations()[i].name) {
-				self.filteredLocations()[i].name = 'erase';
-			} else {
-				current = self.filteredLocations()[i];
-			}
-		}
+        for (var i=0; i < self.filteredLocations().length; i++){
+            console.log(self.filteredLocations());
+            if (current.name === self.filteredLocations()[i].name) {
+                self.filteredLocations()[i].name = 'erase';
+            } else {
+                current = self.filteredLocations()[i];
+            }
+        }
 
-		self.filteredLocations.remove(function(locationPiece) {
-			return locationPiece.name === 'erase';
-		});
-	}
+        self.filteredLocations.remove(function(locationPiece) {
+            return locationPiece.name === 'erase';
+        });
+    }
 
-	self.setMarkers = function() {
+    self.setMarkers = function() {
 
-		for (var marker in markers) {
-			if(!markers.hasOwnProperty(marker)) {
+        for (var marker in markers) {
+            if(!markers.hasOwnProperty(marker)) {
 
-				var toBreak = false;
-					filteredLocations().forEach(function(location) {
-						if (location.name === marker.title) {
-							marker.setMap(map);
-							toBreak = true;
-						} else if(toBreak === false) {
-							marker.setMap(null);
-						}
-					});
+                var toBreak = false;
+                    filteredLocations().forEach(function(location) {
+                        if (location.name === marker.title) {
+                            marker.setMap(map);
+                            toBreak = true;
+                        } else if(toBreak === false) {
+                            marker.setMap(null);
+                        }
+                    });
 
-			}
-		}
-	}
+            }
+        }
+    }
 
-	self.filterLocations = function(input,locationData) {
-		var findAll = false;
+    self.filterLocations = function(input,locationData) {
+        var findAll = false;
 
-		if (input === '') {
-			findAll = true;
-		}
+        if (input === '') {
+            findAll = true;
+        }
 
 
-		locationData['businesses'].forEach(function(business) {
-			console.log(filteredLocations());
-			var name = business['name'],
-				categoryArray = business['categories'],
-				address = business['location']['display_address'],
-				latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
-				location = [business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
+        locationData['businesses'].forEach(function(business) {
+            console.log(filteredLocations());
+            var name = business['name'],
+                categoryArray = business['categories'],
+                address = business['location']['display_address'],
+                latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
+                location = [business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
 
-			var found = false;
+            var found = false;
 
-			categoryArray.forEach(function(categories) {
-				categories.forEach(function(category) {
+            categoryArray.forEach(function(categories) {
+                categories.forEach(function(category) {
 
-					if((!found && category.toLowerCase().contains(input.toLowerCase())) || findAll === true)  {
-						self.filteredLocations.push({name: name,
-							address: address[0] + ' ' + address[1],
-							category: categoryArray[0][0],
-							latLng: latLng
-						});
+                    if((!found && category.toLowerCase().contains(input.toLowerCase())) || findAll === true)  {
+                        self.filteredLocations.push({name: name,
+                            address: address[0] + ' ' + address[1],
+                            category: categoryArray[0][0],
+                            latLng: latLng
+                        });
 
-						console.log(filteredLocations());
-						found = true;
-					}
-				})
-			})
+                        console.log(filteredLocations());
+                        found = true;
+                    }
+                })
+            })
 
-			if (!found) {
-				location.forEach(function(locationPiece) {
+            if (!found) {
+                location.forEach(function(locationPiece) {
 
-					if(!found && locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
-						self.filteredLocations.push({name: name,
-							address: address[0] + ' ' + address[1],
-							category: categoryArray[0][0],
-							latLng: latLng
-						});
-						found = true;
-					}
-				})
-			}
+                    if(!found && locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
+                        self.filteredLocations.push({name: name,
+                            address: address[0] + ' ' + address[1],
+                            category: categoryArray[0][0],
+                            latLng: latLng
+                        });
+                        found = true;
+                    }
+                })
+            }
 
-			if (!found) {
-				address.forEach(function(addressPiece) {
-					if(!found && addressPiece.toLowerCase().contains(input.toLowerCase())) {
-						self.filteredLocations.push({name: name,
-							address: address[0] + ' ' + address[1],
-							category: categoryArray[0][0],
-							latLng: latLng
-						});
-						found = true;
-					}
-				})
-			}
+            if (!found) {
+                address.forEach(function(addressPiece) {
+                    if(!found && addressPiece.toLowerCase().contains(input.toLowerCase())) {
+                        self.filteredLocations.push({name: name,
+                            address: address[0] + ' ' + address[1],
+                            category: categoryArray[0][0],
+                            latLng: latLng
+                        });
+                        found = true;
+                    }
+                })
+            }
 
-			if (name.toLowerCase().contains(input.toLowerCase()) && !found) {
-				self.filteredLocations.push({name: name,
-					address: address[0] + ' ' + address[1],
-					category: categoryArray[0][0],
-					latLng: latLng
-				});
-				found = true;
-			}
+            if (name.toLowerCase().contains(input.toLowerCase()) && !found) {
+                self.filteredLocations.push({name: name,
+                    address: address[0] + ' ' + address[1],
+                    category: categoryArray[0][0],
+                    latLng: latLng
+                });
+                found = true;
+            }
 
-			if (!found) {
-				self.filteredLocations.remove(function(locationPiece) {
-					return locationPiece.name === name;
-				});
-			}
+            if (!found) {
+                self.filteredLocations.remove(function(locationPiece) {
+                    return locationPiece.name === name;
+                });
+            }
 
-			found = false;
-		})
+            found = false;
+        })
 
-		self.filteredLocations.sort(function(left,right) {
-		// sort results alphabetically
-			return left.name == right.name ? 0 : (left.name < right.name ? -1: 1)
-		})
+        self.filteredLocations.sort(function(left,right) {
+        // sort results alphabetically
+            return left.name == right.name ? 0 : (left.name < right.name ? -1: 1)
+        })
 
-		removeDuplicates();
-		setMarkers();
-	}
+        removeDuplicates();
+        setMarkers();
+    }
 
-	self.centerMap = function(location) {
-		menu.removeClass('is-active');
-		filterBox.blur();
-		map.setCenter(location.latLng);
-		google.maps.event.trigger(markers[location.name],'click');
-		markers[location.name].setAnimation(google.maps.Animation.BOUNCE);
-	}
+    self.centerMap = function(location) {
+        menu.removeClass('is-active');
+        filterBox.blur();
+        map.setCenter(location.latLng);
+        google.maps.event.trigger(markers[location.name],'click');
+        markers[location.name].setAnimation(google.maps.Animation.BOUNCE);
+    }
 }
 
 ko.applyBindings(FilterViewModel);
@@ -291,26 +289,26 @@ ko.applyBindings(FilterViewModel);
 searchYelp('food','Red+Hook,NY+12571','restaurants,bars');
 
 var filterBox = $('.filter-box'),
-	menu = $('.filter-menu'),
- 	close = $('.close-button'),
-	map = $('#map');
+    menu = $('.filter-menu'),
+    close = $('.close-button'),
+    map = $('#map');
 
 map.click(function() {
-	menu.removeClass('is-active');
-	filterBox.blur(); // we have to remove focus or else it can't gain focus and reopen the menu!
+    menu.removeClass('is-active');
+    filterBox.blur(); // we have to remove focus or else it can't gain focus and reopen the menu!
 });
 
 filterBox.focus(function() {
-	menu.addClass('is-active');
-	filterLocations(filterInput,yelpResults);
+    menu.addClass('is-active');
+    filterLocations(filterInput,yelpResults);
 });
 
 close.click(function() {
-	menu.removeClass('is-active');
+    menu.removeClass('is-active');
 });
 
 filterBox.on('input', function() {
-	filterInput = $(this).val()
-	filterLocations(filterInput,yelpResults);
+    filterInput = $(this).val()
+    filterLocations(filterInput,yelpResults);
 }).trigger('input');
 
