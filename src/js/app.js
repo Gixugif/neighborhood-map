@@ -140,7 +140,7 @@ function searchYelp(termVal,locationVal,categoryVal) {
 				yelpResults = results;
 			},
 			error: function(error) {
-				console.log(error);
+				alert('Warning: Cannot load location data!');
 			}
 		};
 
