@@ -157,6 +157,7 @@ map.click(function() {
 
 filterBox.focus(function() {
 	menu.addClass('is-active');
+	filterLocations('',yelpResults);
 });
 
 close.click(function() {
@@ -190,19 +191,25 @@ function FilterViewModel() {
 			var toBreak = false;
 				filteredLocations().forEach(function(location) {
 					if (location.name === marker.title) {
-						marker.setMarker(map);
+						marker.setMap(map);
 						toBreak = true;
 					} else if(toBreak === false) {
-						marker.setMarker(null);
+						marker.setMap(null);
 					}
 				});
 		});
 	}
 
 	self.filterLocations = function(input,locationData) {
+		var findAll = false;
+
+		if (input === '') {
+			findAll = true;
+		}
+
 
 		locationData['businesses'].forEach(function(business) {
-
+			console.log(filteredLocations());
 			var name = business['name'],
 				categoryArray = business['categories'],
 				address = business['location']['display_address'],
@@ -214,12 +221,14 @@ function FilterViewModel() {
 			categoryArray.forEach(function(categories) {
 				categories.forEach(function(category) {
 
-					if(!found && category.toLowerCase().contains(input.toLowerCase())) {
+					if((!found && category.toLowerCase().contains(input.toLowerCase())) || findAll === true)  {
 						self.filteredLocations.push({name: name,
 							address: address[0] + ' ' + address[1],
 							category: categoryArray[0][0],
 							latLng: latLng
 						});
+
+						console.log(filteredLocations());
 						found = true;
 					}
 				})
@@ -227,6 +236,7 @@ function FilterViewModel() {
 
 			if (!found) {
 				location.forEach(function(locationPiece) {
+
 					if(!found && locationPiece !== undefined && locationPiece.toLowerCase().contains(input.toLowerCase())) {
 						self.filteredLocations.push({name: name,
 							address: address[0] + ' ' + address[1],
@@ -258,11 +268,6 @@ function FilterViewModel() {
 					latLng: latLng
 				});
 				found = true;
-			}
-
-
-			if (input === '') {
-				self.filteredLocations.removeAll();
 			}
 
 			if (!found) {
