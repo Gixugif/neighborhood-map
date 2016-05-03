@@ -16,7 +16,7 @@ function nonce_generate() {
 }
 
 /*Yelp API search values*/
-var baseURL = 'https://api.yelp.com/v2/search?';
+var baseURL = 'https://api.yelp.com/v2/search?',
     oauth_consumer_keyVal = 'o7io1ZSwVn_Gcxj4MqsgkQ',
     oauth_tokenVal = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM',
     oauth_signature_methodVal = 'HMAC-SHA1',
@@ -48,7 +48,6 @@ function addMarker(latLng,map,name) {
 }
 
 function createMarkers(locationData,map) {
-    console.log(locationData);
 
     var yelpLogo = './images/yelp-logo-xsmall.png';
 
@@ -154,7 +153,7 @@ function FilterViewModel() {
         current = self.filteredLocations()[0];
 
         for (var i=0; i < self.filteredLocations().length; i++){
-            console.log(self.filteredLocations());
+
             if (current.name === self.filteredLocations()[i].name) {
                 self.filteredLocations()[i].name = 'erase';
             } else {
@@ -195,7 +194,7 @@ function FilterViewModel() {
 
 
         locationData['businesses'].forEach(function(business) {
-            console.log(filteredLocations());
+
             var name = business['name'],
                 categoryArray = business['categories'],
                 address = business['location']['display_address'],
@@ -214,7 +213,6 @@ function FilterViewModel() {
                             latLng: latLng
                         });
 
-                        console.log(filteredLocations());
                         found = true;
                     }
                 })
