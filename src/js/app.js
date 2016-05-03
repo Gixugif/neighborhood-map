@@ -1,5 +1,5 @@
 var map;
-var currentMarker = false;
+var currentInfoWindow = false;
 var yelpResults;
 var markers = {};
 var filterInput = ko.observable('');
@@ -92,12 +92,20 @@ function createMarkers(locationData,map) {
 			});
 
 		 markers[name].addListener('click', function() {
-		 	if (currentMarker) {
-		 		currentMarker.close();
+		 	if (currentInfoWindow) {
+		 		currentInfoWindow.close();
+		 		currentMarker.setAnimation(null);
 		 	}
 
-		 	currentMarker = infowindow;
+		 	currentInfoWindow = infowindow;
+		 	currentMarker = markers[name];
+
 			infowindow.open(map,markers[name]);
+			markers[name].setAnimation(google.maps.Animation.BOUNCE);
+
+			google.maps.event.addListener(infowindow,'closeclick',function(){
+   				currentMarker.setAnimation(null);
+   			});
 		});
 	})
 }
@@ -189,17 +197,22 @@ function FilterViewModel() {
 	}
 
 	self.setMarkers = function() {
-		markers.forEach(function(marker) {
-			var toBreak = false;
-				filteredLocations().forEach(function(location) {
-					if (location.name === marker.title) {
-						marker.setMap(map);
-						toBreak = true;
-					} else if(toBreak === false) {
-						marker.setMap(null);
-					}
-				});
-		});
+
+		for (var marker in markers) {
+			if(!markers.hasOwnProperty(marker)) {
+
+				var toBreak = false;
+					filteredLocations().forEach(function(location) {
+						if (location.name === marker.title) {
+							marker.setMap(map);
+							toBreak = true;
+						} else if(toBreak === false) {
+							marker.setMap(null);
+						}
+					});
+
+			}
+		}
 	}
 
 	self.filterLocations = function(input,locationData) {
@@ -295,6 +308,7 @@ function FilterViewModel() {
 		filterBox.blur();
 		map.setCenter(location.latLng);
 		google.maps.event.trigger(markers[location.name],'click');
+		markers[location.name].setAnimation(google.maps.Animation.BOUNCE);
 	}
 }
 
