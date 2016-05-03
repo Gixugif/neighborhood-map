@@ -1,7 +1,7 @@
 var map;
 var currentMarker = false;
 var yelpResults;
-var markers = [];
+var markers = {};
 var filterInput = ko.observable('');
 
 
@@ -84,20 +84,20 @@ function createMarkers(locationData,map) {
 			maxWidth: 350
 		});
 
-		markers.push(new google.maps.Marker({
+		markers[name] = new google.maps.Marker({
 				position: latLng,
 				map: map,
 				animation: google.maps.Animation.DROP,
 				title: name
-			}));
+			});
 
-		 markers.slice(-1)[0].addListener('click', function() {
+		 markers[name].addListener('click', function() {
 		 	if (currentMarker) {
 		 		currentMarker.close();
 		 	}
 
 		 	currentMarker = infowindow;
-			infowindow.open(map,markers.slice(-1)[0]);
+			infowindow.open(map,markers[name]);
 		});
 	})
 }
@@ -294,6 +294,7 @@ function FilterViewModel() {
 		menu.removeClass('is-active');
 		filterBox.blur();
 		map.setCenter(location.latLng);
+		google.maps.event.trigger(markers[location.name],'click');
 	}
 }
 
