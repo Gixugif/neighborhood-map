@@ -51,16 +51,16 @@ function createMarkers(locationData,map) {
 
     var yelpLogo = './images/yelp-logo-xsmall.png';
 
-    locationData['businesses'].forEach(function(business) {
+    locationData.businesses.forEach(function(business) {
 
-        var latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
-            name = business['name'],
-            phoneNum = business['display_phone'],
-            description = business['snippet_text'],
-            businessURL = business['url'],
-            ratingImg = business['rating_img_url_small'],
-            reviewCount = business['review_count'],
-            img = business['image_url'];
+        var latLng = {lat: business.location.coordinate.latitude, lng: business.location.coordinate.longitude},
+            name = business.name,
+            phoneNum = business.display_phone,
+            description = business.snippet_text,
+            businessURL = business.url,
+            ratingImg = business.rating_img_url_small,
+            reviewCount = business.review_count,
+            img = business.image_url;
 
         var contentString = '<div id="content">' +
         '<div id="placeImg"><img src="' + img + '"></img></div>' +
@@ -101,7 +101,7 @@ function createMarkers(locationData,map) {
                 currentMarker.setAnimation(null);
             });
         });
-    })
+    });
 }
 
 /*Yelp*/
@@ -164,7 +164,7 @@ function FilterViewModel() {
         self.filteredLocations.remove(function(locationPiece) {
             return locationPiece.name === 'erase';
         });
-    }
+    };
 
     self.setMarkers = function() {
 
@@ -183,7 +183,7 @@ function FilterViewModel() {
 
             }
         }
-    }
+    };
 
     self.filterLocations = function(input,locationData) {
         var findAll = false;
@@ -193,13 +193,13 @@ function FilterViewModel() {
         }
 
 
-        locationData['businesses'].forEach(function(business) {
+        locationData.businesses.forEach(function(business) {
 
-            var name = business['name'],
-                categoryArray = business['categories'],
-                address = business['location']['display_address'],
-                latLng = {lat: business['location']['coordinate']['latitude'], lng: business['location']['coordinate']['longitude']},
-                location = [business['location']['city'],business['location']['neighborhoods'],business['location']['state_code']];
+            var name = business.name,
+                categoryArray = business.categories,
+                address = business.location.display_address,
+                latLng = {lat: business.location.coordinate.latitude, lng: business.location.coordinate.longitude},
+                location = [business.location.city,business.location.neighborhoods,business.location.state_code];
 
             var found = false;
 
@@ -215,8 +215,8 @@ function FilterViewModel() {
 
                         found = true;
                     }
-                })
-            })
+                });
+            });
 
             if (!found) {
                 location.forEach(function(locationPiece) {
@@ -229,7 +229,7 @@ function FilterViewModel() {
                         });
                         found = true;
                     }
-                })
+                });
             }
 
             if (!found) {
@@ -242,7 +242,7 @@ function FilterViewModel() {
                         });
                         found = true;
                     }
-                })
+                });
             }
 
             if (name.toLowerCase().contains(input.toLowerCase()) && !found) {
@@ -261,16 +261,16 @@ function FilterViewModel() {
             }
 
             found = false;
-        })
+        });
 
         self.filteredLocations.sort(function(left,right) {
         // sort results alphabetically
-            return left.name == right.name ? 0 : (left.name < right.name ? -1: 1)
-        })
+            return left.name == right.name ? 0 : (left.name < right.name ? -1: 1);
+        });
 
         removeDuplicates();
         setMarkers();
-    }
+    };
 
     self.centerMap = function(location) {
         menu.removeClass('is-active');
@@ -278,7 +278,7 @@ function FilterViewModel() {
         map.setCenter(location.latLng);
         google.maps.event.trigger(markers[location.name],'click');
         markers[location.name].setAnimation(google.maps.Animation.BOUNCE);
-    }
+    };
 }
 
 ko.applyBindings(FilterViewModel);
@@ -288,7 +288,7 @@ searchYelp('food','Red+Hook,NY+12571','restaurants,bars');
 
 var filterBox = $('.filter-box'),
     menu = $('.filter-menu'),
-    close = $('.close-button'),
+    closeButton = $('.close-button'),
     map = $('#map');
 
 map.click(function() {
@@ -301,12 +301,12 @@ filterBox.focus(function() {
     filterLocations(filterInput,yelpResults);
 });
 
-close.click(function() {
+closeButton.click(function() {
     menu.removeClass('is-active');
 });
 
 filterBox.on('input', function() {
-    filterInput = $(this).val()
+    filterInput = $(this).val();
     filterLocations(filterInput,yelpResults);
 }).trigger('input');
 
