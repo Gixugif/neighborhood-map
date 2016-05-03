@@ -6,6 +6,7 @@ var currentMarker;
 var filterInput = ko.observable('');
 
 // For IE and Chrome compatability with String.js
+// Credit to Rajesh @ http://stackoverflow.com/a/19196456
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function(str, startIndex) {
         'use strict';
@@ -14,6 +15,7 @@ if (!('contains' in String.prototype)) {
 }
 
 function nonce_generate() {
+    //credit to hellbertos @ https://discussions.udacity.com/t/yelp-api-oauth-issue/40606/5?u=gixugif
     'use strict';
     return (Math.floor(Math.random() * 1e12).toString());
 }
