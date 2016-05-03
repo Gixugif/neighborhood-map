@@ -5,7 +5,7 @@ var markers = {};
 var currentMarker;
 var filterInput = ko.observable('');
 
-// For IE and Chrome compatability
+// For IE and Chrome compatability with String.js
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function(str, startIndex) {
         'use strict';
@@ -54,17 +54,6 @@ function initMap() {
             filterLocations(filterInput, yelpResults);
         }).trigger('input');
     }
-}
-
-function addMarker(latLng, map, name) {
-
-    'use strict';
-    var marker = new google.maps.Marker({
-        position: latLng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: name
-    });
 }
 
 function createMarkers(locationData, map) {
