@@ -1,2 +1,4 @@
-# neighborhood-map
-Udacity neighborhood map project
+Neighborhood Map
+===============================
+A map of restaurants/ bars in Red Hook, NY
+
