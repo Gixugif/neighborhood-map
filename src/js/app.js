@@ -7,27 +7,30 @@ var filterInput = ko.observable('');
 // For IE and Chrome compatability
 if(!('contains' in String.prototype)) {
     String.prototype.contains = function(str, startIndex) {
+        'use strict';
         return -1 !== String.prototype.indexOf.call(this, str, startIndex);
     };
 }
 
 function nonce_generate() {
+  'use strict';
   return (Math.floor(Math.random() * 1e12).toString());
 }
 
 /*Yelp API search values*/
-var baseURL = 'https://api.yelp.com/v2/search?',
-    oauth_consumer_keyVal = 'o7io1ZSwVn_Gcxj4MqsgkQ',
-    oauth_tokenVal = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM',
-    oauth_signature_methodVal = 'HMAC-SHA1',
-    oauth_signatureVal = 'oZstoMIkks8R3kXJGM5uFzDipas',
-    oauth_timestamp = '&oauth_timestamp=',
-    oauth_nonce = '&oauth_nonce=';
+var baseURL = 'https://api.yelp.com/v2/search?';
+var oauth_consumer_keyVal = 'o7io1ZSwVn_Gcxj4MqsgkQ';
+var oauth_tokenVal = '3Rka9DQ66lV8bxGac4DSEcgt6Ze95TfM';
+var oauth_signature_methodVal = 'HMAC-SHA1';
+var oauth_signatureVal = 'oZstoMIkks8R3kXJGM5uFzDipas';
+var oauth_timestamp = '&oauth_timestamp=';
+var oauth_nonce = '&oauth_nonce=';
 
 
 /*Google Maps*/
 
 function initMap() {
+    'use strict';
     var latLng = {lat: 41.994654, lng: -73.875959};
     var markerArray = [];
 
@@ -39,6 +42,7 @@ function initMap() {
 
 function addMarker(latLng,map,name) {
 
+    'use strict';
     var marker = new google.maps.Marker({
         position: latLng,
         map: map,
@@ -49,18 +53,19 @@ function addMarker(latLng,map,name) {
 
 function createMarkers(locationData,map) {
 
+    'use strict';
     var yelpLogo = './images/yelp-logo-xsmall.png';
 
     locationData.businesses.forEach(function(business) {
 
-        var latLng = {lat: business.location.coordinate.latitude, lng: business.location.coordinate.longitude},
-            name = business.name,
-            phoneNum = business.display_phone,
-            description = business.snippet_text,
-            businessURL = business.url,
-            ratingImg = business.rating_img_url_small,
-            reviewCount = business.review_count,
-            img = business.image_url;
+        var latLng = {lat: business.location.coordinate.latitude, lng: business.location.coordinate.longitude};
+        var name = business.name;
+        var phoneNum = business.display_phone;
+        var description = business.snippet_text;
+        var businessURL = business.url;
+        var ratingImg = business.rating_img_url_small;
+        var reviewCount = business.review_count;
+        var img = business.image_url;
 
         var contentString = '<div id="content">' +
         '<div id="placeImg"><img src="' + img + '"></img></div>' +
@@ -108,9 +113,10 @@ function createMarkers(locationData,map) {
 
 function searchYelp(termVal,locationVal,categoryVal) {
 
-    var httpMethod = 'GET',
-        url = 'http://api.yelp.com/v2/search?',
-        parameters = {
+    'use strict';
+    var httpMethod = 'GET';
+    var url = 'http://api.yelp.com/v2/search?';
+    var parameters = {
             location: locationVal,
             term: termVal,
             category_filter: categoryVal,
@@ -120,11 +126,11 @@ function searchYelp(termVal,locationVal,categoryVal) {
             oauth_timestamp: Math.floor(Date.now()/1000),
             oauth_signature_method: oauth_signature_methodVal,
             callback: 'cb'
-        },
-        consumerSecret = 'Xzz7g7qJMMY6-rs8zX8KTtxtBZY',
-        tokenSecret = 'oZstoMIkks8R3kXJGM5uFzDipas',
-        encodedSignature = oauthSignature.generate(httpMethod,url,parameters,consumerSecret,tokenSecret);
-        parameters.oauth_signature = encodedSignature;
+        };
+    var consumerSecret = 'Xzz7g7qJMMY6-rs8zX8KTtxtBZY';
+    var tokenSecret = 'oZstoMIkks8R3kXJGM5uFzDipas';
+    var encodedSignature = oauthSignature.generate(httpMethod,url,parameters,consumerSecret,tokenSecret);
+    parameters.oauth_signature = encodedSignature;
 
         var settings = {
             url: url,
@@ -145,6 +151,8 @@ function searchYelp(termVal,locationVal,categoryVal) {
 }
 
 function FilterViewModel() {
+
+    'use strict';
     var self = this;
 
     self.filteredLocations = ko.observableArray();
