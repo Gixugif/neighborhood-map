@@ -46,6 +46,8 @@ function initMap() {
             zoom: 16
         });
 
+        searchYelp('food', 'Red+Hook,NY+12571', 'restaurants,bars');
+
     }
 }
 
@@ -318,8 +320,6 @@ function FilterViewModel() {
 }
 
 ko.applyBindings(FilterViewModel);
-
-searchYelp('food', 'Red+Hook,NY+12571', 'restaurants,bars');
 
 var filterBox = $('.filter-box'),
     menu = $('.filter-menu'),
