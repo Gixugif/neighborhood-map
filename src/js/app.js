@@ -4,14 +4,15 @@ var yelpResults;
 var markers = {};
 var filterInput = ko.observable('');
 
+// For IE and Chrome compatability
+if(!('contains' in String.prototype)) {
+    String.prototype.contains = function(str, startIndex) {
+        return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+    };
+}
 
-var randomString = function(length) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for(var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
+function nonce_generate() {
+  return (Math.floor(Math.random() * 1e12).toString());
 }
 
 /*Yelp API search values*/
@@ -25,6 +26,9 @@ var oauth_signatureVal = 'oZstoMIkks8R3kXJGM5uFzDipas';
 var oauth_timestamp = '&oauth_timestamp=';
 var oauth_nonce = '&oauth_nonce=';
 
+
+/*Google Maps*/
+
 function initMap() {
 	var latLng = {lat: 41.994654, lng: -73.875959};
 	var markerArray = [];
@@ -33,13 +37,6 @@ function initMap() {
 		center: latLng,
 		zoom: 16
 	});
-}
-
-// For IE and Chrome compatability
-if(!('contains' in String.prototype)) {
-    String.prototype.contains = function(str, startIndex) {
-        return -1 !== String.prototype.indexOf.call(this, str, startIndex);
-    };
 }
 
 function addMarker(latLng,map,name) {
@@ -110,10 +107,7 @@ function createMarkers(locationData,map) {
 	})
 }
 
-function nonce_generate() {
-  return (Math.floor(Math.random() * 1e12).toString());
-}
-
+/*Yelp*/
 
 function searchYelp(termVal,locationVal,categoryVal) {
 
@@ -152,27 +146,6 @@ function searchYelp(termVal,locationVal,categoryVal) {
 
 		$.ajax(settings);
 }
-
-searchYelp('food','Red+Hook,NY+12571','restaurants');
-
-var filterBox = $('.filter-box'),
-	menu = $('.filter-menu'),
- 	close = $('.close-button'),
-	map = $('#map');
-
-map.click(function() {
-	menu.removeClass('is-active');
-	filterBox.blur(); // we have to remove focus or else it can't gain focus and reopen the menu!
-});
-
-filterBox.focus(function() {
-	menu.addClass('is-active');
-	filterLocations(filterInput,yelpResults);
-});
-
-close.click(function() {
-	menu.removeClass('is-active');
-});
 
 function FilterViewModel() {
 	var self = this;
@@ -314,7 +287,30 @@ function FilterViewModel() {
 
 ko.applyBindings(FilterViewModel);
 
+
+searchYelp('food','Red+Hook,NY+12571','restaurants,bars');
+
+var filterBox = $('.filter-box'),
+	menu = $('.filter-menu'),
+ 	close = $('.close-button'),
+	map = $('#map');
+
+map.click(function() {
+	menu.removeClass('is-active');
+	filterBox.blur(); // we have to remove focus or else it can't gain focus and reopen the menu!
+});
+
+filterBox.focus(function() {
+	menu.addClass('is-active');
+	filterLocations(filterInput,yelpResults);
+});
+
+close.click(function() {
+	menu.removeClass('is-active');
+});
+
 filterBox.on('input', function() {
 	filterInput = $(this).val()
 	filterLocations(filterInput,yelpResults);
 }).trigger('input');
+
