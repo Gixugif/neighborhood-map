@@ -31,16 +31,22 @@ var oauth_nonce = '&oauth_nonce=';
 
 function initMap() {
     'use strict';
-    var latLng = {
-        lat: 41.994654,
-        lng: -73.875959
-    };
-    var markerArray = [];
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: latLng,
-        zoom: 16
-    });
+    if (typeof(google) === 'undefined') {
+        alert('error: google failed to load')
+    } else {
+        var latLng = {
+            lat: 41.994654,
+            lng: -73.875959
+        };
+        var markerArray = [];
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: latLng,
+            zoom: 16
+        });
+
+    }
 }
 
 function addMarker(latLng, map, name) {
@@ -312,7 +318,6 @@ function FilterViewModel() {
 }
 
 ko.applyBindings(FilterViewModel);
-
 
 searchYelp('food', 'Red+Hook,NY+12571', 'restaurants,bars');
 
