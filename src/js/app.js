@@ -166,21 +166,29 @@ function FilterViewModel() {
         });
     };
 
+    self.compareMarkers = function(marker,toBreak,location) {
+
+        if (location.name === markers[marker].title) {
+            markers[marker].setMap(map);
+            toBreak = true;
+            return toBreak;
+        } else if(toBreak === false) {
+            markers[marker].setMap(null);
+        }
+    };
+
     self.setMarkers = function() {
 
         for (var marker in markers) {
             if(!markers.hasOwnProperty(markers[marker])) {
                 var toBreak = false;
-                filteredLocations().forEach(function(location) {
 
-                    if (location.name === markers[marker].title) {
-                        markers[marker].setMap(map);
-                        toBreak = true;
-                    } else if(toBreak === false) {
-                        markers[marker].setMap(null);
+                for (var location in filteredLocations()) {
+                    if(filteredLocations().hasOwnProperty(location)) {
+                        toBreak = compareMarkers(marker,toBreak,filteredLocations()[location]);
                     }
-                });
 
+                }
             }
         }
     };
