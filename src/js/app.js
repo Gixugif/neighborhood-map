@@ -96,6 +96,8 @@ function createMarkers(locationData, map) {
             title: name
         });
 
+        var currentMarker = markers[name];
+
         markers[name].addListener('click', function() {
             if (currentInfoWindow) {
                 currentInfoWindow.close();
