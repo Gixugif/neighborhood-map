@@ -2,6 +2,7 @@ var map;
 var currentInfoWindow = false;
 var yelpResults;
 var markers = {};
+var currentMarker;
 var filterInput = ko.observable('');
 
 // For IE and Chrome compatability
@@ -48,6 +49,10 @@ function initMap() {
 
         searchYelp('food', 'Red+Hook,NY+12571', 'restaurants,bars');
 
+        filterBox.on('input', function() {
+            filterInput = $(this).val();
+            filterLocations(filterInput, yelpResults);
+        }).trigger('input');
     }
 }
 
@@ -103,8 +108,6 @@ function createMarkers(locationData, map) {
             animation: google.maps.Animation.DROP,
             title: name
         });
-
-        var currentMarker = markers[name];
 
         markers[name].addListener('click', function() {
             if (currentInfoWindow) {
@@ -340,7 +343,3 @@ closeButton.click(function() {
     menu.removeClass('is-active');
 });
 
-filterBox.on('input', function() {
-    filterInput = $(this).val();
-    filterLocations(filterInput, yelpResults);
-}).trigger('input');
