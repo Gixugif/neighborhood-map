@@ -59,7 +59,7 @@ function initMap() {
 function createMarkers(locationData, map) {
 
     'use strict';
-    var yelpLogo = './images/yelp-logo-xsmall.png';
+    var yelpLogo = './images/yelp-logo-xsmall.png'; // Yelp display req
 
     locationData.businesses.forEach(function(business) {
 
@@ -70,9 +70,9 @@ function createMarkers(locationData, map) {
         var name = business.name;
         var phoneNum = business.display_phone;
         var description = business.snippet_text;
-        var businessURL = business.url;
-        var ratingImg = business.rating_img_url_small;
-        var reviewCount = business.review_count;
+        var businessURL = business.url; // Yelp display req
+        var ratingImg = business.rating_img_url_small; // Yelp display req
+        var reviewCount = business.review_count; // Yelp display req
         var img = business.image_url;
 
         var contentString = '<div id="content">' +
@@ -81,7 +81,7 @@ function createMarkers(locationData, map) {
             '<h3 id="placeName">' + name + '</h3>' +
             '<img src="' + ratingImg + '"></img>' + '(' + reviewCount + ')' +
             '<p><a href="tel: +' + phoneNum + '">' + phoneNum + '</a></p>' +
-            '<p>' + description + '<a href="' + businessURL + '" target="_blank">(read more...)</a></p>' +
+            '<p>' + description + '<a href="' + businessURL + '" target="_blank">(read more...)</a></p>' + // read more is Yelp display req
             '</div>';
 
 
