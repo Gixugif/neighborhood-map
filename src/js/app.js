@@ -169,17 +169,17 @@ function FilterViewModel() {
     self.setMarkers = function() {
 
         for (var marker in markers) {
-            if(!markers.hasOwnProperty(marker)) {
-
+            if(!markers.hasOwnProperty(markers[marker])) {
                 var toBreak = false;
-                    filteredLocations().forEach(function(location) {
-                        if (location.name === marker.title) {
-                            marker.setMap(map);
-                            toBreak = true;
-                        } else if(toBreak === false) {
-                            marker.setMap(null);
-                        }
-                    });
+                filteredLocations().forEach(function(location) {
+
+                    if (location.name === markers[marker].title) {
+                        markers[marker].setMap(map);
+                        toBreak = true;
+                    } else if(toBreak === false) {
+                        markers[marker].setMap(null);
+                    }
+                });
 
             }
         }
