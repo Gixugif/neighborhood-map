@@ -371,6 +371,12 @@ function FilterViewModel() {
         setMarkers();
     };
 
+    /**
+     * @function centerMap()
+     * Centers the map on the map marker that matches
+     * the provided location's name.
+     * @param {object} location - location data from Yelp Search API
+     **/
     self.centerMap = function(location) {
         menu.removeClass('is-active');
         filterBox.blur();
