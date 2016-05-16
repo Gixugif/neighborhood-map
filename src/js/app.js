@@ -78,7 +78,7 @@ function initMap() {
  * is clicked on, and dissapear when another is clicked
  * on or the Info Window close button is pressed.
  * @param {Object} locationData
- * @param {OBject} map
+ * @param {Object} map
  */
 function createMarkers(locationData, map) {
 
