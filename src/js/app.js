@@ -208,7 +208,7 @@ function FilterViewModel() {
     /**
      * @function removeDuplicates()
      * Remove duplicates from a list of Yelp locations based
-     * on if they have a common name
+     * on if they have a common name.
      */
     self.removeDuplicates = function() {
         current = self.filteredLocations()[0];
@@ -227,6 +227,15 @@ function FilterViewModel() {
         });
     };
 
+    /**
+     * @function compareMarkers()
+     * Tests whether a Google Map marker has the same name as
+     * a location from the Yelp Search API.
+     * @param {Object} marker - a Google Map Marker
+     * @param {Boolean} toBreak
+     * @param {Object} location - a location from the Yelp Search API
+     * @returns {Boolean} Shows there was a match between the objects
+     */
     self.compareMarkers = function(marker, toBreak, location) {
 
         if (location.name === markers[marker].title) {
