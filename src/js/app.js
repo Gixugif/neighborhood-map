@@ -263,6 +263,18 @@ function FilterViewModel() {
         }
     };
 
+    /**
+     * @function filterLocations()
+     * Filters the locations on the map by matching their
+     * name, categories, address, latitude and longitude and
+     * location. Makes sure it doesn't return any duplicates,
+     * and returns all locations if the input is an empty String.
+     * Stores the matched locations in an observable array so that
+     * the map will update live instead of needing to refresh the
+     * page for each search.
+     * @param {String} input - Search query to filter with
+     * @param {Object} locationData - Yelp Search API data
+     **/
     self.filterLocations = function(input, locationData) {
         var findAll = false;
 
