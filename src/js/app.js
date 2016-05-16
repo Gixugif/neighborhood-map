@@ -198,12 +198,18 @@ function searchYelp(termVal, locationVal, categoryVal) {
     $.ajax(settings);
 }
 
+
 function FilterViewModel() {
 
     var self = this;
 
     self.filteredLocations = ko.observableArray();
 
+    /**
+     * @function removeDuplicates()
+     * Remove duplicates from a list of Yelp locations based
+     * on if they have a common name
+     */
     self.removeDuplicates = function() {
         current = self.filteredLocations()[0];
 
