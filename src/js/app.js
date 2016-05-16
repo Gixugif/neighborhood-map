@@ -70,6 +70,16 @@ function initMap() {
     }
 }
 
+/**
+ * @function createMarkers()
+ * Places markers on the Google Map using the
+ * Google Map API. Also associates Info Windows
+ * with each Map Marker that appear when the Marker
+ * is clicked on, and dissapear when another is clicked
+ * on or the Info Window close button is pressed.
+ * @param {Object} locationData
+ * @param {OBject} map
+ */
 function createMarkers(locationData, map) {
 
     'use strict';
