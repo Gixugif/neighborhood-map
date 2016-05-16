@@ -37,6 +37,13 @@ var oauth_nonce = '&oauth_nonce=';
 
 /*Google Maps*/
 
+/**
+ * @function initMap()
+ * Creates a Google Map initially centered on Red Hook, NY
+ * grabs restaurant location data from the Yelp Search API
+ * for the area and initializes the filtering function when
+ * someone types into the filter box.
+ */
 function initMap() {
     'use strict';
 
