@@ -143,6 +143,22 @@ function createMarkers(locationData, map) {
 
 /*Yelp*/
 
+/**
+ * @function searchYelp()
+ * Makes an asynchronous call to the Yelp Search API,
+ * calls createMarkers() with the results and stores the
+ * results in a global variable.
+ * @param {String} termVal - Search term (e.g. "food", "restaurants").
+ * If term isn’t included we search everything. The term keyword also
+ * accepts business names such as "Starbucks".
+ * @param {String} locationVal -  	Specifies the combination of "address,
+ * neighborhood, city, state or zip, optional country" to be used when
+ * searching for businesses.
+ * @param {String} categoryVal - Category to filter search results with.
+ * The category filter can be a list of comma delimited categories. For
+ * example, 'bars,french' will filter by Bars and French. The category
+ * identifier should be used (for example 'discgolf', not 'Disc Golf').
+ */
 function searchYelp(termVal, locationVal, categoryVal) {
 
     'use strict';
