@@ -15,9 +15,10 @@ if (!('contains' in String.prototype)) {
 }
 
 /**
-  * @function nonce_generate()
-  * Generates a random 12 digit number for one time use
-  * @returns {String} 12 digit number as a String
+ * @function nonce_generate()
+ * Generates a random 12 digit number for one time use
+ * @returns {String} 12 digit number as a String
+ */
 function nonce_generate() {
     //credit to hellbertos @ https://discussions.udacity.com/t/yelp-api-oauth-issue/40606/5?u=gixugif
     'use strict';
